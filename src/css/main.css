@@ -307,10 +307,16 @@ p.resaltarx2{
 }
 
 
-.containerGrid {
+.container2col {
 	display: grid;
-	padding: 1rem;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-	grid-template-rows: 35px 35px;
-    }
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5px;
+}
+
+.container2col > div {
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px;
+	background-color: rgb(212, 221, 217);
+	border: 2px solid rgb(10, 31, 221);
+}

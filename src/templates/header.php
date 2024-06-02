@@ -1,7 +1,3 @@
-<?php
-// require_once '../sys/funciones.php';
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,10 +19,6 @@
 	<link rel="stylesheet" href="<?php sitio(); ?>css/imprimir.css" />
 	<link rel="stylesheet" href="<?php sitio(); ?>css/main.css" />
 
-	<!-- <link rel="stylesheet" href="<?php sitio(); ?>css/okayNav.css" media="screen"> -->
-
-	<script src="<?php sitio(); ?>js/moment.min.js"></script>
-	<!-- <script src="<?php sitio(); ?>js/jquery.okayNav.min.js"></script> -->
 	<script src="<?php sitio(); ?>js/main.js"> </script>
 
 	<script>
@@ -42,46 +34,14 @@
 </head>
 
 <body onload="inicializar()">
-	<nav role="navigation" id="nav-main" class="nav">
-		<ul class="menus" role="navigation">
-			<li><a href="<?php sitio(); ?>">#</a></li>
-			<li><a href="<?php sitio(); ?>sistema/tempo_control.php">Tempo</a></li>
-			<li>
-				<a href="<?php sitio(); ?>sistema/rechazos.php?tipo=solucionado">Rechazados</a>
-				<ul class="menus">
-					<a href="<?php sitio(); ?>sistema/rechazos.php?tipo=completo">Completo</a>
-					<li><a href="<?php sitio(); ?>sistema/consulta.php?Tipo=6&valorconsulta=Rechazos">Listado rechazados</a></li>
-				</ul>
-			</li>
 
-			<li><a href="<?php sitio(); ?>certif/">Carga de certificados</a></li>
-			<li><a href="<?php sitio(); ?>sistema/liquidacion.php">Liquidación</a></li>
-			<li><a href="<?php sitio(); ?>sistema/config.php">Config</a></li>
-			<li><a href="<?php sitio(); ?>asociados/index.php">Asociados</a></li>
-			<!-- <li><a href="<?php sitio(); ?>sistema/turnos.php?op=consulta">Turnos</a></li> -->
-			<li><a href="<?php sitio(); ?>sistema/Documentacion.html">Doc</a></li>
-		</ul>
-
-		<div class="version">
-			<?php
-			// if ($_SESSION["autentificado"] = 'SI') {
-			//  	echo $_SESSION["usuario"]. '  ';
-			// } else {
-			// 	echo '<a href="' . RAIZ_SITIO . 'sistema/login.php"></a>  ';
-			// }
-			echo date("D  d-m-Y");
-			?>
-			<br>
-			Ver: 3.1.1
-		</div>
-	</nav>
+	<?php render_template('nav'); ?>
 
 	<header>
 		<div class="encabezado">
 			<a href="<?php sitio(); ?>">
-				<img src="<?php sitio(); ?>image/aprocam_logo.png" alt="APROCAM" height=81px width=159px />
+				Finanzas
 			</a>
 			<?php echo (MODO_LOCAL)?'<br><strong>local</strong>':'';?>
 		</div>
-		<div id="fecha"></div>
 	</header>

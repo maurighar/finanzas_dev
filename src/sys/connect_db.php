@@ -8,7 +8,7 @@ class Db_conect_pdo {
 	public function __construct() {
 		try {
 			$this->pdo = new PDO('mysql:host=' . DB_HOST . '; dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD);
-			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // para que el pdo maneje el error automaticamente
+			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 			$this->driver = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 
 		}catch(PDOException $e){
@@ -19,30 +19,49 @@ class Db_conect_pdo {
 	
 }
 
-// class Db_pdo_tempo extends Db_conect_pdo {
+class Db_pdo_movimientos extends Db_conect_pdo {
 
-// 	public function __construct(){
-// 		parent::__construct();
-// 		// echo $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-// 	}
+	public function __construct(){
+		parent::__construct();
+	}
 
-// 	public function get_tempo_control (){
-// 		/**
-// 		 * 
-// 		 * La funcion devuelve falso si la consulta no 
-// 		 * trae ningun dato de la tabla
-// 		 * 
-// 		 */
-// 		$sql = "SELECT *, DATEDIFF(CURDATE(), fecha) AS dias 
-// 			FROM aprocam.tempo_control 
-// 			ORDER BY expediente, tipo, dominio;";
+	public function get_movimientos(){
+		/**
+		 * 
+		 * La funcion devuelve falso si la consulta no 
+		 * trae ningun dato de la tabla
+		 * 
+		 */
+		$sql = "SELECT * 
+			FROM finanzas.movimientos 
+			ORDER BY fecha DESC, detalle;";
 
-// 		$this->resultado = $this->pdo->query($sql);
+		$this->resultado = $this->pdo->query($sql);
 
-// 		if ($this->resultado->rowCount() === 0){
-// 			return false;
-// 		}
+		if ($this->resultado->rowCount() === 0){
+			return false;
+		}
 
-// 		return true;
-// 	}
-// }
+		return true;
+	}
+
+	public function get_tipo_x_mes($año){
+
+		$sql = "SELECT tipo, MONTH(fecha) AS mes, SUM(round(ingreso)) AS ingreso, 
+					SUM(round(egreso)) AS egreso
+				FROM Finanzas.movimientos
+				WHERE year(fecha) = $año
+				GROUP BY tipo, MONTH(fecha)
+				ORDER BY tipo, MONTH(fecha);";
+
+		$this->resultado = $this->pdo->query($sql);
+
+		if ($this->resultado->rowCount() === 0){
+			return false;
+		}
+
+		
+
+		return true;
+	}
+}
