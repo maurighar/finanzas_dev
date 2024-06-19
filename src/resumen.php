@@ -6,8 +6,38 @@ $data = [
     ];
 
 render_template('header', $data);
+
+$year_post = isset($_POST['year'])?intval($_POST['year']):intval(date("Y"));
+
+// if($_SERVER['REQUEST_METHOD']=='POST'){
+    
+//     // var_dump($_POST);
+
+// }
 ?>
 <h1>Resumen</h1>
+
+<div>
+
+    <form action="#" method="post">
+
+        <div>
+            <label class="form-label">Año</label>
+            <input
+                type="text"
+                class="form-control"
+                name="year"
+                id="year"
+                placeholder="Año a buscar"
+                required
+                value='<?= $year_post?>'
+            />
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Generar Resumen">
+    </form>
+
+</div>
 
 <table name="resumen">
 	<thead>
@@ -33,16 +63,17 @@ render_template('header', $data);
 require_once 'sys\connect_db.php';
 
 $movimientos = new Db_pdo_movimientos;
-$datos_mov = $movimientos->get_tipo_x_mes(2024);
+$datos_mov = $movimientos->get_tipo_x_mes($year_post);
 
 if ($datos_mov){
     $tipo_actual = '';
     $cerrar_linea = '';
     $mes_actual = 0;
+    $dirc_raiz = RAIZ_SITIO;
     foreach ($movimientos->resultado as $linea) {
         extract($linea, EXTR_PREFIX_ALL, "mov");
 
-        echo "[($mov_tipo)$mov_mes-$mes_actual]";
+        // echo "[($mov_tipo)$mov_mes-$mes_actual]";
         if ($mov_tipo != $tipo_actual) {
             // antes de cerrar la linea completo las celdas
             if ($mes_actual != 0 && $mes_actual <= 12){
@@ -51,12 +82,16 @@ if ($datos_mov){
 
             $tipo_actual = $mov_tipo;
             $mes_actual = 1;
-            echo "$cerrar_linea<td>$mov_tipo</td>";
+
+            echo "$cerrar_linea<td>
+            <a href='resumen_tipo.php?tipo=$mov_tipo&year=$year_post'><img src='$dirc_raiz/img/ver_info.png' alt='info' width='15' height='15'></a>
+            $mov_tipo
+            </td>";
             
         }
 
         if ($mov_mes = $mes_actual){
-            echo "<td>$mov_ingreso ($mov_egreso)</td>";
+            echo "<td>I:$ $mov_ingreso <br>E: $ $mov_egreso</td>";
         } else{
             echo "<td>0 (0)</td>";
         }
@@ -82,5 +117,4 @@ if ($datos_mov){
 </tfoot>
 
 </table>
-
 <?php render_template('footer')?>

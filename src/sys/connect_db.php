@@ -65,3 +65,49 @@ class Db_pdo_movimientos extends Db_conect_pdo {
 		return true;
 	}
 }
+
+
+class Db_pdo_tipos extends Db_conect_pdo {
+	// CREATE TABLE `tipo` (
+	// 	`tipo` VARCHAR(8) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	// 	`detalle` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	// 	`cuenta` VARCHAR(8) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	// 	PRIMARY KEY (`tipo`) USING BTREE
+	// )
+	// COLLATE='utf8_general_ci'
+	// ENGINE=InnoDB
+	// ;
+
+	public function __construct(){
+		parent::__construct();
+	}
+
+	public function get_tipos(){
+		$sql = "SELECT * 
+			FROM finanzas.tipo 
+			ORDER BY tipo DESC, detalle;";
+
+		$this->resultado = $this->pdo->query($sql);
+
+		if ($this->resultado->rowCount() === 0){
+			return false;
+		}
+
+		return true;
+	}
+
+	public function get_detalle($tipo){
+		$sql = "SELECT detalle 
+			FROM finanzas.tipo 
+			WHERE tipo = '$tipo';";
+
+		$this->resultado = $this->pdo->query($sql);
+		$row = $this->resultado->fetch(PDO::FETCH_ASSOC);
+
+		if (isset($row)){
+			return 'No encontrado el tipo.';
+		}
+
+		return $row['detalle'];
+	}
+}
