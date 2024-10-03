@@ -59,9 +59,23 @@ class Db_pdo_movimientos extends Db_conect_pdo {
 		if ($this->resultado->rowCount() === 0){
 			return false;
 		}
+		return true;
+	}
 
-		
+	public function get_tipo($tipo){
+		$sql = "SELECT tipo, MONTH(fecha) AS months, year(fecha) AS years, 
+					SUM(round(ingreso)) AS ingreso, 
+					SUM(round(egreso)) AS egreso
+				FROM Finanzas.movimientos
+				WHERE tipo = '$tipo'
+				GROUP BY tipo, year(fecha), MONTH(fecha)
+				ORDER BY tipo, fecha DESC;";
 
+		$this->resultado = $this->pdo->query($sql);
+
+		if ($this->resultado->rowCount() === 0){
+			return false;
+		}
 		return true;
 	}
 }
@@ -105,9 +119,10 @@ class Db_pdo_tipos extends Db_conect_pdo {
 		$row = $this->resultado->fetch(PDO::FETCH_ASSOC);
 
 		if (isset($row)){
-			return 'No encontrado el tipo.';
+			return $row['detalle'];
+			
 		}
 
-		return $row['detalle'];
+		return 'No encontrado el tipo.';
 	}
 }

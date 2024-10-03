@@ -7,7 +7,7 @@ td {
 table {
 	border-collapse: collapse;
 	margin: 25px auto;
-	width: 95%;
+	/* width: 95%; */
 	/*max-width: 95%;*/
 }
 

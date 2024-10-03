@@ -19,6 +19,7 @@
 		</ul>
 
 		<div class="version">
+			<a href="<?php sitio(); ?>login.php">Login</a>
 			<?php
 			// if ($_SESSION["autentificado"] = 'SI') {
 			//  	echo $_SESSION["usuario"]. '  ';

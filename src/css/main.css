@@ -320,3 +320,17 @@ p.resaltarx2{
 	background-color: rgb(212, 221, 217);
 	border: 2px solid rgb(10, 31, 221);
 }
+
+.container3col {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 5px;
+}
+
+.cuadro_gris {
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px;
+	background-color: rgb(212, 221, 217);
+	border: 2px solid grey;
+}

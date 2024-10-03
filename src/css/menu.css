@@ -46,14 +46,20 @@ ol.menus  {
 .menus li ul li {
 	position: relative;
 }
-.menus li ul li ul{
+.menus li ul li ul {
 	right: -140px;
 	top: 0px;
 }
 
-.version{
+.version {
 	text-align: right;
 	color: #fff;
 	font-size: 10px;
 	padding: 5px;
+}
+
+.version a {
+	background-color: #000;
+	color: #fff;
+	text-decoration: none;
 }

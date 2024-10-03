@@ -84,10 +84,10 @@ if ($datos_mov){
             $mes_actual = 1;
 
             echo "$cerrar_linea<td>
-            <a href='resumen_tipo.php?tipo=$mov_tipo&year=$year_post'><img src='$dirc_raiz/img/ver_info.png' alt='info' width='15' height='15'></a>
             $mov_tipo
+            <a href='resumen_tipo.php?tipo=$mov_tipo&year=$year_post'>(Ver)</a>
             </td>";
-            
+            // <img src='$dirc_raiz/img/ver_info.png' alt='info' width='15' height='15'>
         }
 
         if ($mov_mes = $mes_actual){
